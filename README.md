@@ -36,8 +36,14 @@
 - npm 或 yarn
 - edge one 账户
 
-### 安装步骤
+### 安装方法一步骤
+1.直接下载该代码，然后console.tencentcloud.com/edgeone/pages，创建项目，直接上传文件
 
+### 安装方法二步骤
+1.github fork 该代码，然后console.tencentcloud.com/edgeone/pages，创建项目，导入 Git 仓库
+
+### 安装方法三步骤
+基于edgeone cli 部署
 1. 安装
    在准备工作阶段克隆下来的项目中，可以通过 npm 来安装 CLI：
 
