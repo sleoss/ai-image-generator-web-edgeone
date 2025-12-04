@@ -1,9 +1,4 @@
-// Edge Functions for AI Image Generation
-// Replaces the Cloudflare Worker functionality using EdgeOne Pages Functions
-
-// Main request handler for the root path
-export function onRequest(context) {
-  const html = `<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -1069,9 +1064,9 @@ export function onRequest(context) {
             elements.emptyGallery.style.display = 'none';
 
             const cols = parseInt(elements.galleryCols.value);
-            elements.galleryContainer.style.gridTemplateColumns = \`repeat(${cols}, 1fr)\`;
+            elements.galleryContainer.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
 
-            elements.galleryContainer.innerHTML = history.map(item => \`
+            elements.galleryContainer.innerHTML = history.map(item => `
                 <div class="gallery-card">
                     <img src="data:image/png;base64,${item.base64Image}" alt="AI Generated Image" loading="lazy">
                     <div class="image-info">
@@ -1087,7 +1082,7 @@ export function onRequest(context) {
                 <button class="download-btn" onclick="downloadImage('${item.base64Image}', '${item.id}')">
                     💾 下载作品 #${item.id.slice(-6)}
                 </button>
-            \`).join('');
+            `).join('');
         }
 
         // Update statistics
@@ -1099,11 +1094,11 @@ export function onRequest(context) {
             if (count > 0) {
                 const recent = history.slice(0, 5);
                 const avgDuration = recent.reduce((sum, item) => sum + parseFloat(item.duration), 0) / recent.length;
-                elements.avgDuration.textContent = \`${avgDuration.toFixed(1)}s\`;
+                elements.avgDuration.textContent = `${avgDuration.toFixed(1)}s`;
 
                 const totalDuration = history.reduce((sum, item) => sum + parseFloat(item.duration), 0);
-                elements.totalAvgDuration.textContent = \`${(totalDuration / count).toFixed(1)}s\`;
-                elements.totalDuration.textContent = \`${Math.round(totalDuration)}s\`;
+                elements.totalAvgDuration.textContent = `${(totalDuration / count).toFixed(1)}s`;
+                elements.totalDuration.textContent = `${Math.round(totalDuration)}s`;
             } else {
                 elements.avgDuration.textContent = '0s';
                 elements.totalAvgDuration.textContent = '0s';
@@ -1145,7 +1140,7 @@ export function onRequest(context) {
         function showNotification(message, type = 'info') {
             // Create notification element
             const notification = document.createElement('div');
-            notification.className = \`notification ${type}\`;
+            notification.className = `notification ${type}`;
             notification.textContent = message;
 
             // Style the notification
@@ -1184,8 +1179,8 @@ export function onRequest(context) {
         // Download image function
         function downloadImage(base64Data, id) {
             const link = document.createElement('a');
-            link.download = \`AI-Art-${id}.png\`;
-            link.href = \`data:image/png;base64,${base64Data}\`;
+            link.download = `AI-Art-${id}.png`;
+            link.href = `data:image/png;base64,${base64Data}`;
             link.click();
         }
 
@@ -1193,14 +1188,4 @@ export function onRequest(context) {
         document.addEventListener('DOMContentLoaded', init);
     </script>
 </body>
-</html>`;
-
-  return new Response(html, {
-    headers: {
-      'Content-Type': 'text/html',
-      'Cache-Control': 'no-cache, no-store, must-revalidate',
-      'Pragma': 'no-cache',
-      'Expires': '0'
-    }
-  });
-}
+</html>
