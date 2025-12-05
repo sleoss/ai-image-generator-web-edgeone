@@ -4,8 +4,8 @@
 
 此项目将原有的 Python Streamlit 应用重新实现为 edge one，提供相同的 AI 图像生成功能，但具有更好的性能、可扩展性和成本效益。
 
-2025-12-04 添加支持 https://ai.gitee.com/ Z-Image-Turbo API 每日免费体验 100 张
-
+- 2025-12-04 添加支持 https://ai.gitee.com/ Z-Image-Turbo API 每日免费体验 100 张
+- 2025-12-05 添加密钥自动缓存到浏览器localStorge
 ## 功能特性
 
 - **AI 图像生成**: 通过 API 调用生成高质量图像
