@@ -739,7 +739,10 @@
                     </div>
                     <div class="input-group">
                         <label for="apiKey">🔐 API Key</label>
-                        <input type="password" id="apiKey" placeholder="sk-...">
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <input type="password" id="apiKey" placeholder="sk-..." style="flex: 1; margin-bottom: 0;">
+                            <button id="clearApiKeyBtn" class="btn-secondary" style="padding: 0.75rem 1rem !important; height: fit-content;">🗑️ 清空</button>
+                        </div>
                     </div>
                 </div>
 
@@ -913,7 +916,8 @@
             totalAvgDuration: document.getElementById('totalAvgDuration'),
             totalDuration: document.getElementById('totalDuration'),
             inspirationSection: document.getElementById('inspirationSection'),
-            inspirationBtns: document.querySelectorAll('.inspiration-btn')
+            inspirationBtns: document.querySelectorAll('.inspiration-btn'),
+            clearApiKeyBtn: document.getElementById('clearApiKeyBtn')
         };
 
         // Initialize the application
@@ -925,6 +929,12 @@
             // Load saved prompt if available
             if (savedPrompt) {
                 elements.promptInput.value = savedPrompt;
+            }
+
+            // Load saved API key if available
+            const savedApiKey = localStorage.getItem('apiKey');
+            if (savedApiKey) {
+                elements.apiKey.value = savedApiKey;
             }
 
             // Update gallery columns display
@@ -953,6 +963,22 @@
             elements.promptInput.addEventListener('input', (e) => {
                 if (!isGenerating) {
                     savedPrompt = e.target.value;
+                }
+            });
+
+            // Auto-save API key
+            elements.apiKey.addEventListener('input', () => {
+                if (elements.apiKey.value.trim()) {
+                    localStorage.setItem('apiKey', elements.apiKey.value.trim());
+                }
+            });
+
+            // Clear API key button
+            elements.clearApiKeyBtn.addEventListener('click', () => {
+                if (confirm('确定要清空API密钥吗？')) {
+                    elements.apiKey.value = '';
+                    localStorage.removeItem('apiKey');
+                    showNotification('🗑️ API密钥已清空', 'info');
                 }
             });
         }
